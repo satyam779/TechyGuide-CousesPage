@@ -235,7 +235,7 @@
                 'Project Deployment and Hosting'
             ]
         },
-        IoT: {
+        Games: {
             title: 'Game Development',
             sessions: '18 Sessions',
             projectsCount: '15+ Playable Games',
@@ -333,6 +333,150 @@
                 'Data Handling in Mobile Apps',
                 'App Testing & Debugging',
                 'Complete Android App Development'
+            ]
+        },
+        IoT: {
+            title: 'Internet of Things (IoT)',
+            sessions: '23 Sessions',
+            projectsCount: '15+ IoT-Based Implementations',
+            assessment: 'Module-wise Assessments',
+
+            whatWillYouLearn: [
+                'Fundamentals of Internet of Things',
+                'Working with IoT boards using Arduino IDE',
+                'Sensor and actuator integration',
+                'WiFi-based communication systems',
+                'Cloud-connected automation projects',
+                'Real-time monitoring systems',
+                'Smart home and smart city applications'
+            ],
+
+            description: 'This course introduces students to connected devices and smart automation systems. Learners understand how IoT systems collect data, communicate over the internet, and automate real-world environments. The program emphasizes hands-on implementation using IoT boards, sensors, WiFi modules, and automation logic. Students build practical smart systems including home automation, smart parking, irrigation systems, and cloud-connected monitoring solutions. The learning path follows: IoT fundamentals → hardware integration → internet communication → smart automation systems.',
+
+            duration: '8 Weeks Practical Program',
+
+            curriculum: [
+                'Module 1: IoT Foundations (Introduction to IoT, IoT Board with Arduino IDE, Know Your Components)',
+                'Module 2: IoT Sensor-Based Systems (Digital Scale, Fire Alarm, Rain Detector, Smoke Detection, Temperature Monitoring, Water Level Indicator)',
+                'Module 3: IoT Automation & Control (Multi Servo Control, Home Automation, Irrigation System, Smart Door Lock, Smart Dustbin)',
+                'Module 4: Smart Infrastructure Projects (Smart Parking System, IoT Traffic Light System, Internet Clock, IoT Notice Board)',
+                'Module 5: Advanced IoT Applications (WiFi Controlled Car, Virtual Assistant Based Home Automation)'
+            ],
+
+            projects: [
+                'IoT-Based Fire Alarm',
+                'Smart Home Automation System',
+                'IoT Irrigation System',
+                'WiFi Controlled Car',
+                'Smart Parking System',
+                'IoT Door Lock System',
+                'Temperature Monitoring System',
+                'IoT Notice Board'
+            ],
+
+            skills: [
+                'IoT Architecture Understanding',
+                'Sensor & Actuator Integration',
+                'Wireless Communication',
+                'Automation Logic Design',
+                'Cloud-Based Monitoring',
+                'Real-World Smart System Development'
+            ]
+        },
+        Scratch: {
+            title: 'Scratch Programming',
+            sessions: '24 Sessions',
+            projectsCount: '10+ Interactive Projects',
+            assessment: 'Module-wise Assessments',
+
+            whatWillYouLearn: [
+                'Basics of visual programming using Scratch',
+                'Creating animations and interactive stories',
+                'Understanding events, loops, and logic',
+                'Using sprites, stages, and broadcast communication',
+                'Building simple games with keyboard controls',
+                'Working with variables, timers, and score systems',
+                'Designing and presenting complete Scratch projects'
+            ],
+
+            description: 'This course introduces students to programming through Scratch, a visual block-based platform designed for beginners. Learners understand programming logic by building animations, interactive stories, and simple games. The program focuses on creativity and logical thinking while gradually introducing events, loops, variables, and debugging. Students design their own interactive applications and present a final game project. The progression follows: interface basics → animation → interaction → game logic → project development.',
+
+            duration: '8 Weeks Practical Program',
+
+            curriculum: [
+                'Module 1: Scratch Foundations (Introduction to Scratch Interface, Creating & Saving Projects, Basic Motion Blocks, Looks & Sound Blocks, Using Stage & Sprites)',
+                'Module 2: Animation & Interaction (Simple Animations, Events & Control Blocks, Interactive Stories, Broadcast & Sensing Blocks)',
+                'Module 3: Game Development Basics (Keyboard-Controlled Games, Timers, Operators & Variables, Score Counters, Basic Game Logic)',
+                'Module 4: Project Development (Project Planning, Building a Mini Game, Debugging & Testing)',
+                'Module 5: Game Design & Enhancement (Improving Game Design, Adding Sounds & Effects, Background Music, Custom Sprites)',
+                'Module 6: Project Publishing (Sharing Projects Online, Final Project Presentation)'
+            ],
+
+            projects: [
+                'Interactive Animated Story',
+                'Keyboard-Controlled Game',
+                'Score-Based Arcade Game',
+                'Timer-Based Challenge Game',
+                'Sound-Enhanced Interactive Project',
+                'Final Mini Game Project'
+            ],
+
+            skills: [
+                'Visual Programming Concepts',
+                'Animation Design',
+                'Event-Based Logic',
+                'Game Logic Development',
+                'Creative Problem Solving',
+                'Project Design & Presentation'
+            ]
+        },
+        Electronics: {
+            title: 'Electronics',
+            sessions: '16 Sessions',
+            projectsCount: '15 Practical Projects',
+            assessment: 'Module-wise Assessments',
+
+            whatWillYouLearn: [
+                'Fundamentals of electronic components and circuits',
+                'Understanding voltage, current, and power flow',
+                'Building circuits using LEDs, resistors, capacitors, and transistors',
+                'Series and parallel circuit configurations',
+                'Motor control and timing circuits',
+                'Sensor-based automatic control systems',
+                'Practical circuit assembly and troubleshooting'
+            ],
+
+            description: 'This course introduces the fundamentals of electronics through hands-on circuit building and experimentation. Students learn how electronic components work together to form functional systems. The program emphasizes practical implementation by building working circuits using LEDs, switches, motors, capacitors, and transistors. Learners also explore automation systems such as street light control and touch-based switching. The progression follows: component understanding → basic circuits → switching and control → timing circuits → mini electronic systems.',
+
+            duration: '6 Weeks Practical Program',
+
+            curriculum: [
+                'Module 1: Basic Electronic Components (Know Your Component, DIY Torch, Laser Pointer, LED Pencil Light)',
+                'Module 2: Circuit Fundamentals (Parallel Connection – Same Color, Parallel Connection – Different Color, Series Connection)',
+                'Module 3: Control & Switching Circuits (Sound Buzzer, Transistor as Touch Switch, Simple Touch Switch)',
+                'Module 4: Automation & Motor Control (Automatic Street Light Control, DC Motor Speed Control)',
+                'Module 5: Timing & Capacitor Circuits (Timer Delay, Capacitor Charging & Discharging Circuit)',
+                'Module 6: Creative Electronic Projects (Musical Bell, Firefly LED Effect)'
+            ],
+
+            projects: [
+                'DIY Torch',
+                'Laser Pointer Circuit',
+                'Automatic Street Light System',
+                'Touch Switch Circuit',
+                'DC Motor Speed Controller',
+                'Capacitor Charging and Discharging Circuit',
+                'Musical Bell Circuit',
+                'Firefly LED Effect'
+            ],
+
+            skills: [
+                'Circuit Design Fundamentals',
+                'Component Identification',
+                'Series and Parallel Circuit Design',
+                'Motor and LED Control',
+                'Basic Electronic Troubleshooting',
+                'Practical Electronics Prototyping'
             ]
         }
     };
