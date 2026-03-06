@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Robotics & Coding for Kids | TechyGuide</title>
+    <meta name="description" content="Join TechyGuide's Robotics & Coding courses designed for young innovators. Build real projects, learn AI basics, and develop future-ready tech skills. ">
+    <meta http-equiv="Content-Security-Policy"
+        content="
+        default-src 'self';
+        script-src 'self';
+        style-src 'self' https://fonts.googleapis.com;
+        font-src 'self' https://fonts.gstatic.com;
+        img-src 'self' data:;
+        media-src 'self';
+        connect-src 'self' blob:;
+        object-src 'none';
+        base-uri 'self';
+        form-action 'self';
+        upgrade-insecure-requests;
+        ">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+
+    <header class="hero" id="home">
+        <div id="heroBackgroundAnimation" class="hero-bg" aria-hidden="true"></div>
+        <div class="hero-lottie" data-lottie="assets/CMS computer animation.json" aria-hidden="true"></div>
+        <div class="hero-lottie2" data-lottie="assets/Robohead Loading.json" aria-hidden="true"></div>
+        <div class="hero-container">
+            <div class="hero-content">
+                <p class="tagline">FOLLOW INNOVATION!</p>
+                <h1 class="kit-title">Leading the Future of Tech Education with <span class="accent">Robotics & Coding</span></h1>
+            </div>
+            <div class="hero-image">
+                <img src="assets/child-image.png" alt="Kids in India learning robotics and coding at TechyGuide Robotics Centre" class="hero-img" width="600" height="400" fetchpriority="high" decoding="async">
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <section class="courses-section" id="courses">
+            <h2 class="courses-title">Our <span class="accent">Courses</span></h2>
+            <div class="grid-wrapper">
+                <article class="card">
+                    <img src="assets/father-son-making-robot.jpg" alt="Student assembling an intelligent robot kit using sensors and hardware" class="card-img" loading="lazy" width="400" height="280">
+                    <h2 class="courses-name">Robotics & Automation</h2>
+                    <p>Master hardware and automation.</p>
+                    <p>Master hardware, sensors, and core engineering skills while building and programming intelligent robots.</p>
+                    <button type="button" class="know-more" data-course="Robotics">Know more</button>
+                    <a href="#" class="btn-claim" aria-label="Explore Robotics course">Explore Now</a>
+                </article>
+                <article class="card">
+                    <img src="assets/Python.png" alt="Laptop screen showing Python programming code for beginners" class="card-img card-error-handle" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22 viewBox=%220 0 400 300%22%3E%3Crect fill=%22%23e0e7ff%22 width=%22400%22 height=%22300%22/%3E%3Ctext fill=%22%234b5563%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3EPython Coding%3C/text%3E%3C/svg%3E'">
+                    <h2 class="courses-name">Coding & Logic</h2>
+                    <p>Learn logic and programming.</p>
+                    <p>Begin your coding journey with Python’s powerful and beginner-friendly syntax, widely used in AI, Data Science and etc.</p>
+                    <button type="button" class="know-more" data-course="Coding">Know more</button>
+                    <a href="#" class="btn-claim" aria-label="Explore Python Coding course">Explore Now</a>
+                </article>
+                <article class="card">
+                    <img src="assets/AI.png" alt="Illustration of neural networks and AI systems for student learning" class="card-img card-error-handle" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22 viewBox=%220 0 400 300%22%3E%3Crect fill=%22%23fef3c7%22 width=%22400%22 height=%22300%22/%3E%3Ctext fill=%22%234b5563%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3EArtificial Intelligence%3C/text%3E%3C/svg%3E'">
+                    <h2 class="courses-name">Artificial Intelligence</h2>
+                    <p>Discover the future of technology.</p>
+                    <p>Explore the future of tech. Create smart systems that learn and adapt automatically.</p>
+                    <button type="button" class="know-more" data-course="AI">Know more</button>
+                    <a href="#" class="btn-claim" aria-label="Explore AI course">Explore Now</a>
+                </article>
+                <article class="card">
+                    <img src="assets/AppDev.png" alt="Mobile app interface design on a smartphone screen for kids project" class="card-img card-error-handle" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22 viewBox=%220 0 400 300%22%3E%3Crect fill=%22%23dcfce7%22 width=%22400%22 height=%22300%22/%3E%3Ctext fill=%22%234b5563%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3EApp Development%3C/text%3E%3C/svg%3E'">
+                    <h2 class="courses-name">App Development</h2>
+                    <p>Learn mobile app development. </p>
+                    <p>Students create user-friendly apps for smartphones and tablets using real programming concepts.</p>
+                    <button type="button" class="know-more" data-course="AppDev">Know more</button>
+                    <a href="#" class="btn-claim" aria-label="Explore App Development course">Explore Now</a>
+                </article>
+                <article class="card">
+                    <img src="assets/WebDev.png" alt="Building a website using HTML CSS and JavaScript code snippets" class="card-img card-error-handle" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22 viewBox=%220 0 400 300%22%3E%3Crect fill=%22%23f3e8ff%22 width=%22400%22 height=%22300%22/%3E%3Ctext fill=%22%234b5563%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3EWeb Development%3C/text%3E%3C/svg%3E'">
+                    <h2 class="courses-name">Web Development</h2>
+                    <p>Learn website development and coding. </p>
+                    <p>Students use HTML, CSS and JavaScript to build interactive web pages and web Applications.</p>
+                    <button type="button" class="know-more" data-course="WebDev">Know more</button>
+                    <a href="#" class="btn-claim" aria-label="Explore Web Development course">Explore Now</a>
+                </article>
+                <article class="card">
+                    <img src="assets/Games.png" alt="2D game design interface with character sprites and gameplay logic" class="card-img card-error-handle" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22 viewBox=%220 0 400 300%22%3E%3Crect fill=%22%23fee2e2%22 width=%22400%22 height=%22300%22/%3E%3Ctext fill=%22%234b5563%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3ECoding Games%3C/text%3E%3C/svg%3E'">
+                    <h2 class="courses-name">Game Development</h2>
+                    <p>Learn hardware based game development</p>
+                    <p>Build interactive embedded arcade games using Python fundamentals and ESP32 microcontroller.</p>
+                    <button type="button" class="know-more" data-course="IoT">Know more</button>
+                    <a href="#" class="btn-claim" aria-label="Explore Coding Games course">Explore Now</a>
+                </article>
+            </div>
+        </section>
+
+        <div id="courseModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+            <div class="modal-content">
+                <button type="button" class="close-modal" aria-label="Close modal">&times;</button>
+
+                <h1 id="modalTitle"></h1>
+
+                <div class="modal-stats">
+                    <span id="modalSessions"></span>
+                    <span id="modalProjectsCount"></span>
+                    <span id="modalAssessment"></span>
+                </div>
+
+                <a href="#" class="btn-claim modal-btn">Explore Now</a>
+
+                <div class="modal-body-section">
+                    <h3>What will you learn</h3>
+                    <ul id="modalLearn" class="curriculum-list"></ul>
+                </div>
+
+                <div class="modal-body-section">
+                    <h3>Course Description</h3>
+                    <p id="modalDescription"></p>
+                </div>
+
+                <div class="modal-body-section">
+                    <h3>Duration</h3>
+                    <p id="modalDuration"></p>
+                </div>
+
+                <div class="modal-body-section">
+                    <h3>Curriculum</h3>
+                    <ul id="modalCurriculum" class="curriculum-list"></ul>
+                </div>
+
+                <div class="modal-body-section">
+                    <h3>Projects You'll Build</h3>
+                    <ul id="modalProjects" class="curriculum-list"></ul>
+                </div>
+
+                <div class="modal-body-section">
+                    <h3>Skills You'll Master</h3>
+                    <ul id="modalSkills" class="curriculum-list"></ul>
+                    
+                </div>
+                
+
+            </div>
+        </div>
+
+        <section class="info-flow-section" id="why-choose">
+            <div class="why-choose-bg" id="whyChooseBg" aria-hidden="true"></div>
+            <div class="content-wrapper">
+                <h2 class="main-title orange">Why Students Should Learn Robotics, Coding and AI Skills Today?</h2>
+
+                <div class="future-points">
+                    <div class="future-point">
+                        <div class="point-content">
+                            <div class="point-number">01</div>
+                            <h3>Build Smart Machines, Not Just Use Them</h3>
+                            <p>Your child learns how robots, sensors and smart devices actually work.</p>
+                            <p>They develop hands-on problem-solving skills by building real robotics projects.</p>
+                            <div class="future-impact"><strong>Future Impact:</strong> Builds strong STEM foundations and prepares students for robotics, automation, electronics and AI careers.</div>
+                        </div>
+                        <div class="point-image" data-lottie="assets/Development Of Artificial Intelligence.json"></div>
+                    </div>
+                    <div class="future-point reverse">
+                        <div class="point-content">
+                            <div class="point-number">02</div>
+                            <h3>Learn the Technology Shaping the Future</h3>
+                            <p>Your child learns how Artificial Intelligence and machine learning work in real life applications.</p>
+                            <p>They build logical thinking and analytical skills from an early age.</p>
+                            <div class="future-impact"><strong>Future Impact:</strong> Prepares students for high-demand careers in AI, data science and intelligent systems.</div>
+                        </div>
+                        <div class="point-image" data-lottie="assets/Reading.json"></div>
+                    </div>
+                    <div class="future-point">
+                        <div class="point-content">
+                            <div class="point-number">03</div>
+                            <h3>Create the Digital World</h3>
+                            <p>Your child learns how websites and web applications are designed and built.</p>
+                            <p>hey develop creativity while gaining practical coding and problem-solving skills.</p>
+                            <div class="future-impact"><strong>Future Impact:</strong> Enables students to build websites, digital products and even launch their own online projects.</div>
+                        </div>
+                        <div class="point-image" data-lottie="assets/web design Lottie animation.json"></div>
+                    </div>
+                    <div class="future-point reverse">
+                        <div class="point-content">
+                            <div class="point-number">04</div>
+                            <h3>Strong Foundation in Coding</h3>
+                            <p>Python is beginner-friendly yet powerful, making it ideal for young learners.</p>
+                            <p>Students use it in AI, automation, game development and software projects.</p>
+                            <div class="future-impact"><strong>Future Impact:</strong> Builds core programming skills and prepares children for multiple technology careers.</div>
+                        </div>
+                        <div class="point-image" data-lottie="assets/Coding.json"></div>
+                    </div>
+                    <div class="future-point">
+                        <div class="point-content">
+                            <div class="point-number">05</div>
+                            <h3>Turn Ideas into Real Applications</h3>
+                            <p>Students learn to design and develop mobile apps and web applications.</p>
+                            <p>They understand how digital platforms and online businesses actually work.</p>
+                            <div class="future-impact"><strong>Future Impact:</strong> Builds practical tech skills and confidence to create projects, startups and future career opportunities.</div>
+                        </div>
+                        <div class="point-image" data-lottie="assets/Idea with books.json"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="reels-section">
+            <div class="section-header">
+                <p class="tagline">STUDENT SHOWCASE</p>
+                <h2 class="section-title">Classroom <span class="accent">Moments</span></h2>
+            </div>
+
+            <div class="reels-wrapper">
+                <button type="button" class="nav-arrow prev-arrow" aria-label="Previous reel">&#8249;</button>
+                
+                <div class="reels-container" role="list">
+                    <div class="reel-card" role="listitem">
+                        <video class="reel-bg" loop muted playsinline preload="none" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect fill='%23f0f0f0' width='400' height='300'/%3E%3Ccircle cx='200' cy='150' r='40' fill='%23ddd'/%3E%3C/svg%3E">
+                            <source src="assets/video.mp4" type="video/mp4">
+                        </video>
+                        <div class="reel-overlay">
+                            <button type="button" class="play-btn-circle" aria-label="Play video">
+                                <span class="play-icon"></span>
+                            </button>
+                            <div class="reel-info">
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="reel-card" role="listitem">
+                        <video class="reel-bg" loop muted playsinline preload="none" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect fill='%23f0f0f0' width='400' height='300'/%3E%3Ccircle cx='200' cy='150' r='40' fill='%23ddd'/%3E%3C/svg%3E">
+                            <source src="assets/video.mp4" type="video/mp4">
+                        </video>
+                        <div class="reel-overlay">
+                            <button type="button" class="play-btn-circle" aria-label="Play video">
+                                <span class="play-icon"></span>
+                            </button>
+                            <div class="reel-info">
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="reel-card" role="listitem">
+                        <video class="reel-bg" loop muted playsinline preload="none" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect fill='%23f0f0f0' width='400' height='300'/%3E%3Ccircle cx='200' cy='150' r='40' fill='%23ddd'/%3E%3C/svg%3E">
+                            <source src="assets/video.mp4" type="video/mp4">
+                        </video>
+                        <div class="reel-overlay">
+                            <button type="button" class="play-btn-circle" aria-label="Play video">
+                                <span class="play-icon"></span>
+                            </button>
+                            <div class="reel-info">
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="reel-card" role="listitem">
+                        <video class="reel-bg" loop muted playsinline preload="none" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect fill='%23f0f0f0' width='400' height='300'/%3E%3Ccircle cx='200' cy='150' r='40' fill='%23ddd'/%3E%3C/svg%3E">
+                            <source src="assets/video.mp4" type="video/mp4">
+                        </video>
+                        <div class="reel-overlay">
+                            <button type="button" class="play-btn-circle" aria-label="Play video">
+                                <span class="play-icon"></span>
+                            </button>
+                            <div class="reel-info">
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="reel-card" role="listitem">
+                        <video class="reel-bg" loop muted playsinline preload="none" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect fill='%23f0f0f0' width='400' height='300'/%3E%3Ccircle cx='200' cy='150' r='40' fill='%23ddd'/%3E%3C/svg%3E">
+                            <source src="assets/video.mp4" type="video/mp4">
+                        </video>
+                        <div class="reel-overlay">
+                            <button type="button" class="play-btn-circle" aria-label="Play video">
+                                <span class="play-icon"></span>
+                            </button>
+                            <div class="reel-info">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="nav-arrow next-arrow" aria-label="Next reel">&#8250;</button>
+            </div>
+        </section>
+
+        <section class="section" id="stories">
+            <div class="container">
+                <h2 class="section-title">Success <span class="accent">Stories</span></h2>
+                
+                <div class="story-viewport">
+                    <div class="story-track" role="list">
+                        <div class="story-item" role="listitem"><img src="assets/Website Testimonial_16.png" alt="Student success story" loading="lazy" width="400" height="300" onerror="this.style.display='none'"></div>
+                        <div class="story-item" role="listitem"><img src="assets/Website Testimonial_15.png" alt="Student success story" loading="lazy" width="400" height="300"></div>
+                        <div class="story-item" role="listitem"><img src="assets/Website Testimonial_16.png" alt="Student success story" loading="lazy" width="400" height="300" onerror="this.style.display='none'"></div>
+                        <div class="story-item" role="listitem"><img src="assets/Website Testimonial_15.png" alt="Student success story" loading="lazy" width="400" height="300"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="assets/js/lottie-web-5.13.0/lottie.min.js" defer></script>
+    <script src="script.js" defer></script>
+</body>
+</html>
