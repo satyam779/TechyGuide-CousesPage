@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&display=swap');
 
 :root {
     --primary-orange: #dd8d0c;
@@ -15,6 +14,29 @@
     --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.12);
     --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     --section-heading-size: clamp(2.1rem, 4.4vw, 3.2rem);
+}
+
+@media print {
+    .hero, .reels-section, #stories, .modal, .hero-bg, .future-point {
+        display: none !important;
+    }
+    
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    .courses-section {
+        padding: 20px !important;
+        background: white !important;
+    }
+    
+    .card {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        box-shadow: none !important;
+        border: 1px solid #ccc;
+    }
 }
 
 /* Performance optimizations */
@@ -558,7 +580,7 @@ body.modal-open {
     background: white;
     width: 80%;
     max-width: 800px;
-    height: 630px;
+    height: 610px;
     padding: 40px;
     border-radius: 25px;
     position: relative;

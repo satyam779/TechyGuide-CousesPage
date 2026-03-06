@@ -8,11 +8,11 @@
     <meta http-equiv="Content-Security-Policy"
         content="
         default-src 'self';
-        script-src 'self';
-        style-src 'self' https://fonts.googleapis.com;
+        script-src 'self' 'unsafe-inline';
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
         font-src 'self' https://fonts.gstatic.com;
-        img-src 'self' data:;
-        media-src 'self';
+        img-src 'self' data: blob:;
+        media-src 'self' blob:;
         connect-src 'self' blob:;
         object-src 'none';
         base-uri 'self';
@@ -23,6 +23,9 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <meta name="theme-color" content="#003366">
 </head>
 <body>
 
@@ -46,7 +49,7 @@
             <h2 class="courses-title">Our <span class="accent">Courses</span></h2>
             <div class="grid-wrapper">
                 <article class="card">
-                    <img src="assets/father-son-making-robot.jpg" alt="Student assembling an intelligent robot kit using sensors and hardware" class="card-img" loading="lazy" width="400" height="280">
+                    <img src="assets/father-son-making-robot.jpg" alt="Student assembling an intelligent robot kit using sensors and hardware" class="card-img card-error-handle" loading="lazy" width="400" height="280">
                     <h2 class="courses-name">Robotics & Automation</h2>
                     <p>Master hardware and automation.</p>
                     <p>Master hardware, sensors, and core engineering skills while building and programming intelligent robots.</p>
@@ -54,7 +57,7 @@
                     <a href="#" class="btn-claim" aria-label="Explore Robotics course">Explore Now</a>
                 </article>
                 <article class="card">
-                    <img src="assets/Python.png" alt="Laptop screen showing Python programming code for beginners" class="card-img card-error-handle" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22 viewBox=%220 0 400 300%22%3E%3Crect fill=%22%23e0e7ff%22 width=%22400%22 height=%22300%22/%3E%3Ctext fill=%22%234b5563%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3EPython Coding%3C/text%3E%3C/svg%3E'">
+                    <img src="assets/Python.png" alt="Laptop screen showing Python programming code for beginners" class="card-img card-error-handle" loading="lazy" width="400" height="280">
                     <h2 class="courses-name">Python Programming</h2>
                     <p>Learn logic and programming.</p>
                     <p>Begin your coding journey with Python’s powerful and beginner-friendly syntax, widely used in AI, Data Science and etc.</p>
@@ -62,7 +65,7 @@
                     <a href="#" class="btn-claim" aria-label="Explore Python Coding course">Explore Now</a>
                 </article>
                 <article class="card">
-                    <img src="assets/AI.png" alt="Illustration of neural networks and AI systems for student learning" class="card-img card-error-handle" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22 viewBox=%220 0 400 300%22%3E%3Crect fill=%22%23fef3c7%22 width=%22400%22 height=%22300%22/%3E%3Ctext fill=%22%234b5563%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3EArtificial Intelligence%3C/text%3E%3C/svg%3E'">
+                    <img src="assets/AI.png" alt="Illustration of neural networks and AI systems for student learning" class="card-img card-error-handle" loading="lazy" width="400" height="280">
                     <h2 class="courses-name">Artificial Intelligence</h2>
                     <p>Discover the future of technology.</p>
                     <p>Explore the future of tech. Create smart systems that learn and adapt automatically.</p>
@@ -70,7 +73,7 @@
                     <a href="#" class="btn-claim" aria-label="Explore AI course">Explore Now</a>
                 </article>
                 <article class="card">
-                    <img src="assets/AppDev.png" alt="Mobile app interface design on a smartphone screen for kids project" class="card-img card-error-handle" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22 viewBox=%220 0 400 300%22%3E%3Crect fill=%22%23dcfce7%22 width=%22400%22 height=%22300%22/%3E%3Ctext fill=%22%234b5563%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3EApp Development%3C/text%3E%3C/svg%3E'">
+                    <img src="assets/AppDev.png" alt="Mobile app interface design on a smartphone screen for kids project" class="card-img card-error-handle" loading="lazy" width="400" height="280">
                     <h2 class="courses-name">App Development</h2>
                     <p>Learn mobile app development. </p>
                     <p>Students create user-friendly apps for smartphones and tablets using real programming concepts.</p>
@@ -78,7 +81,7 @@
                     <a href="#" class="btn-claim" aria-label="Explore App Development course">Explore Now</a>
                 </article>
                 <article class="card">
-                    <img src="assets/WebDev.png" alt="Building a website using HTML CSS and JavaScript code snippets" class="card-img card-error-handle" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22 viewBox=%220 0 400 300%22%3E%3Crect fill=%22%23f3e8ff%22 width=%22400%22 height=%22300%22/%3E%3Ctext fill=%22%234b5563%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3EWeb Development%3C/text%3E%3C/svg%3E'">
+                    <img src="assets/WebDev.png" alt="Building a website using HTML CSS and JavaScript code snippets" class="card-img card-error-handle" loading="lazy" width="400" height="280">
                     <h2 class="courses-name">Web Development</h2>
                     <p>Learn website development and coding. </p>
                     <p>Students use HTML, CSS and JavaScript to build interactive web pages and web Applications.</p>
@@ -86,36 +89,36 @@
                     <a href="#" class="btn-claim" aria-label="Explore Web Development course">Explore Now</a>
                 </article>
                 <article class="card">
-                    <img src="assets/Games.png" alt="2D game design interface with character sprites and gameplay logic" class="card-img card-error-handle" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22 viewBox=%220 0 400 300%22%3E%3Crect fill=%22%23fee2e2%22 width=%22400%22 height=%22300%22/%3E%3Ctext fill=%22%234b5563%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3ECoding Games%3C/text%3E%3C/svg%3E'">
+                    <img src="assets/Games.png" alt="2D game design interface with character sprites and gameplay logic" class="card-img card-error-handle" loading="lazy" width="400" height="280">
                     <h2 class="courses-name">Game Development</h2>
                     <p>Learn hardware based game development</p>
                     <p>Build interactive embedded arcade games using Python fundamentals and ESP32 microcontroller.</p>
                     <button type="button" class="know-more" data-course="Games">Know more</button>
-                    <a href="#" class="btn-claim" aria-label="Explore Coding Games course">Explore Now</a>
+                    <a href="#" class="btn-claim" aria-label="Explore Game Development course">Explore Now</a>
                 </article>
                 <article class="card">
-                    <img src="assets/IoT.png" alt="2D game design interface with character sprites and gameplay logic" class="card-img card-error-handle" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22 viewBox=%220 0 400 300%22%3E%3Crect fill=%22%23fee2e2%22 width=%22400%22 height=%22300%22/%3E%3Ctext fill=%22%234b5563%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3ECoding Games%3C/text%3E%3C/svg%3E'">
+                    <img src="assets/IoT.png" alt="IoT smart device and connected sensor network" class="card-img card-error-handle" loading="lazy" width="400" height="280">
                     <h2 class="courses-name">Internet of Things (IoT)</h2>
                     <p>Learn Internet of Things (IoT) fundamentals and smart device development</p>
                     <p>Build smart automation projects using sensors, WiFi, and connected devices.</p>
                     <button type="button" class="know-more" data-course="IoT">Know more</button>
-                    <a href="#" class="btn-claim" aria-label="Explore Coding Games course">Explore Now</a>
+                    <a href="#" class="btn-claim" aria-label="Explore IoT course">Explore Now</a>
                 </article>
                 <article class="card">
-                    <img src="assets/Scratch.png" alt="2D game design interface with character sprites and gameplay logic" class="card-img card-error-handle" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22 viewBox=%220 0 400 300%22%3E%3Crect fill=%22%23fee2e2%22 width=%22400%22 height=%22300%22/%3E%3Ctext fill=%22%234b5563%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3ECoding Games%3C/text%3E%3C/svg%3E'">
+                    <img src="assets/Scratch.png" alt="Scratch visual programming interface for kids" class="card-img card-error-handle" loading="lazy" width="400" height="280">
                     <h2 class="courses-name">Scratch Programming</h2>
                     <p>Learn Scratch programming fundamentals through creative visual coding</p>
                     <p>Build interactive games and animations using events, variables and game logic.</p>
                     <button type="button" class="know-more" data-course="Scratch">Know more</button>
-                    <a href="#" class="btn-claim" aria-label="Explore Coding Games course">Explore Now</a>
+                    <a href="#" class="btn-claim" aria-label="Explore Scratch Programming course">Explore Now</a>
                 </article>
                 <article class="card">
-                    <img src="assets/Electronics.png" alt="2D game design interface with character sprites and gameplay logic" class="card-img card-error-handle" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22 viewBox=%220 0 400 300%22%3E%3Crect fill=%22%23fee2e2%22 width=%22400%22 height=%22300%22/%3E%3Ctext fill=%22%234b5563%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3ECoding Games%3C/text%3E%3C/svg%3E'">
+                    <img src="assets/Electronics.png" alt="Electronic components and circuit boards" class="card-img card-error-handle" loading="lazy" width="400" height="280">
                     <h2 class="courses-name">Electronics </h2>
                     <p>Learn electronics fundamentals through practical circuit building</p>
                     <p>Build interactive electronic projects using LEDs, motors, sensors, and control circuits.</p>
                     <button type="button" class="know-more" data-course="Electronics">Know more</button>
-                    <a href="#" class="btn-claim" aria-label="Explore Coding Games course">Explore Now</a>
+                    <a href="#" class="btn-claim" aria-label="Explore Electronics course">Explore Now</a>
                 </article>
             </div>
         </section>
@@ -320,10 +323,10 @@
                 
                 <div class="story-viewport">
                     <div class="story-track" role="list">
-                        <div class="story-item" role="listitem"><img src="assets/Website Testimonial_16.png" alt="Student success story" loading="lazy" width="400" height="300" onerror="this.style.display='none'"></div>
-                        <div class="story-item" role="listitem"><img src="assets/Website Testimonial_15.png" alt="Student success story" loading="lazy" width="400" height="300"></div>
-                        <div class="story-item" role="listitem"><img src="assets/Website Testimonial_16.png" alt="Student success story" loading="lazy" width="400" height="300" onerror="this.style.display='none'"></div>
-                        <div class="story-item" role="listitem"><img src="assets/Website Testimonial_15.png" alt="Student success story" loading="lazy" width="400" height="300"></div>
+                        <div class="story-item" role="listitem"><img src="assets/Website Testimonial_16.png" alt="Student success story" loading="lazy" width="400" height="300" class="img-error-handle"></div>
+                        <div class="story-item" role="listitem"><img src="assets/Website Testimonial_15.png" alt="Student success story" loading="lazy" width="400" height="300" class="img-error-handle"></div>
+                        <div class="story-item" role="listitem"><img src="assets/Website Testimonial_16.png" alt="Student success story" loading="lazy" width="400" height="300" class="img-error-handle"></div>
+                        <div class="story-item" role="listitem"><img src="assets/Website Testimonial_15.png" alt="Student success story" loading="lazy" width="400" height="300" class="img-error-handle"></div>
                     </div>
                 </div>
             </div>

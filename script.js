@@ -4,6 +4,57 @@
     const DOM_STATE = { loading: 'loading', interactive: 'interactive', complete: 'complete' };
     const MODAL_CLOSE_MS = 140;
 
+    const IMAGE_FALLBACKS = {
+        'Robotics': 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22280%22 viewBox=%220 0 400 280%22%3E%3Crect fill=%22%23fee2e2%22 width=%22400%22 height=%22280%22/%3E%3Ctext fill=%22%234b5563%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3ERobotics%3C/text%3E%3C/svg%3E',
+        'Python': 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22280%22 viewBox=%220 0 400 280%22%3E%3Crect fill=%22%23e0e7ff%22 width=%22400%22 height=%22280%22/%3E%3Ctext fill=%22%234b5563%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3EPython%3C/text%3E%3C/svg%3E',
+        'AI': 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22280%22 viewBox=%220 0 400 280%22%3E%3Crect fill=%22%23fef3c7%22 width=%22400%22 height=%22280%22/%3E%3Ctext fill=%22%234b5563%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3EAI%3C/text%3E%3C/svg%3E',
+        'AppDev': 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22280%22 viewBox=%220 0 400 280%22%3E%3Crect fill=%22%23dcfce7%22 width=%22400%22 height=%22280%22/%3E%3Ctext fill=%22%234b5563%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3EApp%20Dev%3C/text%3E%3C/svg%3E',
+        'WebDev': 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22280%22 viewBox=%220 0 400 280%22%3E%3Crect fill=%22%23f3e8ff%22 width=%22400%22 height=%22280%22/%3E%3Ctext fill=%22%234b5563%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3EWeb%20Dev%3C/text%3E%3C/svg%3E',
+        'Games': 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22280%22 viewBox=%220 0 400 280%22%3E%3Crect fill=%22%23fee2e2%22 width=%22400%22 height=%22280%22/%3E%3Ctext fill=%22%234b5563%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3EGames%3C/text%3E%3C/svg%3E',
+        'IoT': 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22280%22 viewBox=%220 0 400 280%22%3E%3Crect fill=%22%23dbeafe%22 width=%22400%22 height=%22280%22/%3E%3Ctext fill=%22%234b5563%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3EIoT%3C/text%3E%3C/svg%3E',
+        'Scratch': 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22280%22 viewBox=%220 0 400 280%22%3E%3Crect fill=%22%23fef9c3%22 width=%22400%22 height=%22280%22/%3E%3Ctext fill=%22%234b5563%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3EScratch%3C/text%3E%3C/svg%3E',
+        'Electronics': 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22280%22 viewBox=%220 0 400 280%22%3E%3Crect fill=%22%23fee2e2%22 width=%22400%22 height=%22280%22/%3E%3Ctext fill=%22%234b5563%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3EElectronics%3C/text%3E%3C/svg%3E'
+    };
+
+    function handleImageErrors() {
+        document.querySelectorAll('.card-error-handle').forEach(img => {
+            const card = img.closest('.card');
+            const courseName = card ? card.querySelector('.courses-name')?.textContent?.trim() : '';
+            const key = Object.keys(IMAGE_FALLBACKS).find(k => courseName.toLowerCase().includes(k.toLowerCase()));
+            
+            if (key && IMAGE_FALLBACKS[key]) {
+                const applyFallback = () => {
+                    img.removeEventListener('error', handleError);
+                    img.removeEventListener('load', handleLoad);
+                    if (!img.complete || img.naturalHeight === 0) {
+                        img.src = IMAGE_FALLBACKS[key];
+                    }
+                };
+                
+                const handleError = () => applyFallback();
+                const handleLoad = () => img.removeEventListener('error', handleError);
+                
+                if (img.complete && (img.naturalHeight === 0 || !img.src)) {
+                    applyFallback();
+                } else {
+                    img.addEventListener('error', handleError, { once: true });
+                    img.addEventListener('load', handleLoad, { once: true });
+                }
+            }
+        });
+
+        document.querySelectorAll('.img-error-handle').forEach(img => {
+            if (img.complete && (!img.src || img.naturalHeight === 0)) {
+                img.style.display = 'none';
+            } else {
+                img.addEventListener('error', function handleError() {
+                    img.removeEventListener('error', handleError);
+                    img.style.display = 'none';
+                }, { once: true });
+            }
+        });
+    }
+
     function runOnDomReady(callback) {
         if (document.readyState === DOM_STATE.loading) {
             document.addEventListener('DOMContentLoaded', callback, { once: true });
@@ -92,7 +143,7 @@
             ]
         },
         Coding: {
-                title: 'Python',
+                title: 'Python Programming',
                 sessions: '12 Sessions',
                 projectsCount: '6+ Real-World Applications',
                 assessment: 'Module-wise Assessments',
@@ -745,6 +796,13 @@
         
         if (!reelsContainer) return;
 
+        document.querySelectorAll('.reel-bg').forEach(video => {
+            video.addEventListener('error', function() {
+                const card = video.closest('.reel-card');
+                if (card) card.style.display = 'none';
+            }, { once: true });
+        });
+
         const scrollAmount = 600;
 
         if (prevBtn) {
@@ -877,8 +935,13 @@
     }
 
     function init() {
+        if (window.self !== window.top) {
+            window.top.location = window.self.location;
+        }
+
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         
+        handleImageErrors();
         initializeHeroBackground();
         
         if (!prefersReducedMotion) {
