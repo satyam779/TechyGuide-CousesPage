@@ -791,74 +791,141 @@
 
     function setupReelsHandlers() {
         const reelsContainer = document.querySelector('.reels-container');
-        const prevBtn = document.querySelector('.prev-arrow');
-        const nextBtn = document.querySelector('.next-arrow');
         
         if (!reelsContainer) return;
 
-        document.querySelectorAll('.reel-bg').forEach(video => {
-            video.addEventListener('error', function() {
-                const card = video.closest('.reel-card');
-                if (card) card.style.display = 'none';
-            }, { once: true });
-        });
+        const videos = Array.from(reelsContainer.querySelectorAll('.reel-bg'));
+        let hasDragged = false;
+        let isDragging = false;
+        let dragStartX = 0;
+        let dragStartScrollLeft = 0;
 
-        const scrollAmount = 600;
-
-        if (prevBtn) {
-            prevBtn.addEventListener('click', () => {
-                reelsContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-            });
-        }
-
-        if (nextBtn) {
-            nextBtn.addEventListener('click', () => {
-                reelsContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-            });
-        }
-
-        const playVideo = (video, playButton) => {
-            if (!video || !playButton) return;
-            
-            // Load video on first interaction
-            if (video.preload === 'none') {
-                video.preload = 'metadata';
-            }
-            
-            const allVideos = document.querySelectorAll('.reel-bg');
-            const allButtons = document.querySelectorAll('.play-btn-circle');
-            
-            allVideos.forEach(v => {
-                if (v !== video) {
-                    v.pause();
-                    v.currentTime = 0;
-                }
-            });
-            
-            allButtons.forEach(btn => {
-                btn.style.display = 'flex';
-            });
-            
-            if (video.paused) {
-                video.play().catch(() => {});
-                playButton.style.display = 'none';
-            } else {
-                video.pause();
-                playButton.style.display = 'flex';
-            }
-            
-            video.onended = () => {
-                playButton.style.display = 'flex';
-            };
+        const syncPausedState = (video) => {
+            const card = video.closest('.reel-card');
+            if (!card) return;
+            card.classList.toggle('is-paused', video.paused);
         };
 
+        const playWithSound = (video) => {
+            if (!video) return;
+
+            videos.forEach((otherVideo) => {
+                if (otherVideo !== video) {
+                    otherVideo.pause();
+                    otherVideo.muted = true;
+                }
+            });
+
+            video.muted = false;
+            video.volume = 1;
+
+            const playAttempt = video.play();
+            if (playAttempt && typeof playAttempt.catch === 'function') {
+                playAttempt.catch(() => {
+                    syncPausedState(video);
+                });
+            }
+        };
+
+        videos.forEach((video) => {
+            const card = video.closest('.reel-card');
+
+            video.loop = true;
+            video.playsInline = true;
+            video.preload = 'metadata';
+            video.muted = true;
+            video.pause();
+
+            video.addEventListener('error', () => {
+                if (card) card.style.display = 'none';
+            }, { once: true });
+
+            video.addEventListener('play', () => syncPausedState(video));
+            video.addEventListener('pause', () => syncPausedState(video));
+            syncPausedState(video);
+        });
+
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    const video = entry.target;
+                    if (!entry.isIntersecting) {
+                        video.pause();
+                    }
+                });
+            }, {
+                root: reelsContainer,
+                threshold: 0.5
+            });
+
+            videos.forEach((video) => observer.observe(video));
+        }
+
+        const stopDragging = () => {
+            if (!isDragging) return;
+            isDragging = false;
+            reelsContainer.classList.remove('dragging');
+        };
+
+        reelsContainer.addEventListener('pointerdown', (e) => {
+            if (e.pointerType !== 'mouse' || e.button !== 0) return;
+
+            isDragging = true;
+            hasDragged = false;
+            dragStartX = e.clientX;
+            dragStartScrollLeft = reelsContainer.scrollLeft;
+            reelsContainer.classList.add('dragging');
+        });
+
+        reelsContainer.addEventListener('pointermove', (e) => {
+            if (!isDragging) return;
+
+            const deltaX = e.clientX - dragStartX;
+            if (Math.abs(deltaX) > 6) {
+                hasDragged = true;
+            }
+
+            reelsContainer.scrollLeft = dragStartScrollLeft - deltaX;
+
+            if (hasDragged) {
+                e.preventDefault();
+            }
+        });
+
+        reelsContainer.addEventListener('pointerup', stopDragging);
+        reelsContainer.addEventListener('pointercancel', stopDragging);
+        reelsContainer.addEventListener('pointerleave', (e) => {
+            if (e.pointerType === 'mouse') {
+                stopDragging();
+            }
+        });
+
         reelsContainer.addEventListener('click', (e) => {
+            if (hasDragged) {
+                hasDragged = false;
+                return;
+            }
+
             const reelCard = e.target.closest('.reel-card');
             if (!reelCard) return;
 
             const video = reelCard.querySelector('.reel-bg');
-            const playButton = reelCard.querySelector('.play-btn-circle');
-            playVideo(video, playButton);
+            if (!video) return;
+
+            const playButton = e.target.closest('.play-btn-circle');
+
+            if (playButton) {
+                if (video.paused) {
+                    playWithSound(video);
+                } else {
+                    video.pause();
+                }
+                return;
+            }
+
+            if (!video.paused) {
+                video.pause();
+            }
         });
     }
 
