@@ -91,6 +91,14 @@ body.modal-open {
     overflow: hidden;
 }
 
+.courses-section,
+.info-flow-section,
+.reels-section,
+#stories {
+    content-visibility: auto;
+    contain-intrinsic-size: 900px;
+}
+
 .orange {
     color: #ff8c00 !important;
 }
@@ -484,6 +492,10 @@ body.modal-open {
     border-radius: 0;
 }
 
+.no-white-bg {
+    background: transparent;
+}
+
 .card h2 {
     margin: 10px;
     font-size: 1.25rem;
@@ -841,13 +853,14 @@ body.modal-open {
     text-align: center;
 }
 
-#stories .section-title::after {
+#stories .section-title::after,
+.reels-section .section-title::after {
     content: '';
     display: block;
     width: 60px;
     height: 4px;
     background: var(--primary-orange);
-    margin: 15px auto 0;
+    margin: 10px auto 0;
     border-radius: 10px;
 }
 
@@ -855,6 +868,7 @@ body.modal-open {
     position: relative;
     max-width: 1600px;
     margin: 0 auto;
+    margin-top: 60px;
     overflow: hidden;
 }
 
@@ -879,10 +893,12 @@ body.modal-open {
     scroll-behavior: smooth;
     padding: 12px clamp(10px, 2.5vw, 26px) 16px;
     scroll-padding-inline: clamp(10px, 2.5vw, 26px);
-    scroll-snap-type: x mandatory;
+    scroll-snap-type: x proximity;
     -webkit-overflow-scrolling: touch;
-    touch-action: pan-y pinch-zoom;
+    touch-action: pan-x pan-y pinch-zoom;
     cursor: grab;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
 }
 
 .reels-container.dragging {
@@ -919,9 +935,9 @@ body.modal-open {
 .reel-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.8) 100%);
     display: flex;
     flex-direction: column;
+    background: linear-gradient(to bottom, transparent 90%, rgba(0, 0, 0, 0.8) 130%);
     justify-content: flex-end;
     padding: 20px;
     text-align: left;
@@ -941,8 +957,8 @@ body.modal-open {
     align-items: center;
     justify-content: center;
     z-index: 10;
-    opacity: 0;
-    pointer-events: none;
+    opacity: 1;
+    pointer-events: auto;
     transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
@@ -963,6 +979,19 @@ body.modal-open {
 
 .reel-card.is-paused:hover .play-btn-circle {
     transform: translate(-50%, -50%) scale(1.08);
+}
+
+.reel-card:not(.is-paused) .play-icon {
+    width: 14px;
+    height: 14px;
+    margin-left: 0;
+    border: none;
+    background: linear-gradient(
+        90deg,
+        #ffffff 0 38%,
+        transparent 38% 62%,
+        #ffffff 62% 100%
+    );
 }
 
 .reel-info { color: white; }
@@ -1000,11 +1029,14 @@ body.modal-open {
 .story-track {
     display: flex;
     width: max-content;
-    animation: scrollStories 30s linear infinite;
     gap: 10px;
 }
 
-.story-track:hover {
+.story-track.is-looping {
+    animation: scrollStories 30s linear infinite;
+}
+
+.story-track.is-looping:hover {
     animation-play-state: paused;
 }
 
@@ -1018,7 +1050,11 @@ body.modal-open {
     height: 450px;
     object-fit: cover;
     border-radius: 12px;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.story-item img.no-white-bg {
+    mix-blend-mode: normal;
 }
 
 .story-item img:hover {
@@ -1060,11 +1096,19 @@ body.modal-open {
 }
 
 @media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto !important;
+    }
+
     .section-animate,
     .section-animate.is-visible,
     .story-track {
         animation: none !important;
         transition: none !important;
+    }
+
+    .reels-container {
+        scroll-behavior: auto !important;
     }
 
     .section-animate {
@@ -1148,6 +1192,32 @@ body.modal-open {
     
     .future-point .future-impact {
         text-align: left;
+    }
+
+    .story-viewport {
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding: 16px 12px 20px;
+    }
+
+    .story-track,
+    .story-track.is-looping {
+        animation: none !important;
+        gap: 12px;
+        padding: 0 6px;
+    }
+
+    .story-item {
+        width: min(84vw, 360px);
+        scroll-snap-align: start;
+    }
+
+    .story-item img {
+        height: auto;
+        aspect-ratio: 4 / 5;
     }
 }
 

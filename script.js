@@ -15,6 +15,7 @@
         'Scratch': 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22280%22 viewBox=%220 0 400 280%22%3E%3Crect fill=%22%23fef9c3%22 width=%22400%22 height=%22280%22/%3E%3Ctext fill=%22%234b5563%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3EScratch%3C/text%3E%3C/svg%3E',
         'Electronics': 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22280%22 viewBox=%220 0 400 280%22%3E%3Crect fill=%22%23fee2e2%22 width=%22400%22 height=%22280%22/%3E%3Ctext fill=%22%234b5563%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3EElectronics%3C/text%3E%3C/svg%3E'
     };
+    const TESTIMONIAL_FALLBACK = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22 viewBox=%220 0 400 300%22%3E%3Crect fill=%22%23e2f3ff%22 width=%22400%22 height=%22300%22/%3E%3Ctext fill=%22%234b5563%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3EStory%20Image%3C/text%3E%3C/svg%3E';
 
     function handleImageErrors() {
         document.querySelectorAll('.card-error-handle').forEach(img => {
@@ -44,12 +45,18 @@
         });
 
         document.querySelectorAll('.img-error-handle').forEach(img => {
+            const applyTestimonialFallback = () => {
+                if (img.dataset.fallbackApplied === 'true') return;
+                img.dataset.fallbackApplied = 'true';
+                img.src = TESTIMONIAL_FALLBACK;
+            };
+
             if (img.complete && (!img.src || img.naturalHeight === 0)) {
-                img.style.display = 'none';
+                applyTestimonialFallback();
             } else {
                 img.addEventListener('error', function handleError() {
                     img.removeEventListener('error', handleError);
-                    img.style.display = 'none';
+                    applyTestimonialFallback();
                 }, { once: true });
             }
         });
@@ -799,11 +806,37 @@
         let isDragging = false;
         let dragStartX = 0;
         let dragStartScrollLeft = 0;
+        const containerStyle = window.getComputedStyle(reelsContainer);
+        const reelGap = Number.parseFloat(containerStyle.columnGap || containerStyle.gap || '20') || 20;
+
+        const getScrollStep = () => {
+            const card = reelsContainer.querySelector('.reel-card');
+            if (!card) return 320;
+            return Math.round(card.getBoundingClientRect().width + reelGap);
+        };
+
+        const scrollByStep = (direction) => {
+            reelsContainer.scrollBy({
+                left: direction * getScrollStep(),
+                behavior: 'smooth'
+            });
+        };
+
+        const ensureVideoPreview = (video) => {
+            if (!video || video.dataset.previewReady === 'true') return;
+            video.preload = 'metadata';
+            video.dataset.previewReady = 'true';
+            video.load();
+        };
 
         const syncPausedState = (video) => {
             const card = video.closest('.reel-card');
             if (!card) return;
             card.classList.toggle('is-paused', video.paused);
+            const control = card.querySelector('.play-btn-circle');
+            if (control) {
+                control.setAttribute('aria-label', video.paused ? 'Play video' : 'Pause video');
+            }
         };
 
         const playWithSound = (video) => {
@@ -816,13 +849,20 @@
                 }
             });
 
+            ensureVideoPreview(video);
+
             video.muted = false;
             video.volume = 1;
 
             const playAttempt = video.play();
             if (playAttempt && typeof playAttempt.catch === 'function') {
                 playAttempt.catch(() => {
-                    syncPausedState(video);
+                    // Fallback: if unmuted playback is blocked, try muted playback.
+                    video.muted = true;
+                    const mutedAttempt = video.play();
+                    if (mutedAttempt && typeof mutedAttempt.catch === 'function') {
+                        mutedAttempt.catch(() => syncPausedState(video));
+                    }
                 });
             }
         };
@@ -832,12 +872,20 @@
 
             video.loop = true;
             video.playsInline = true;
-            video.preload = 'metadata';
+            video.preload = 'none';
             video.muted = true;
+            video.controls = false;
             video.pause();
+            video.dataset.previewReady = 'false';
 
             video.addEventListener('error', () => {
                 if (card) card.style.display = 'none';
+            }, { once: true });
+
+            video.addEventListener('loadeddata', () => {
+                if (card) {
+                    card.classList.add('has-preview');
+                }
             }, { once: true });
 
             video.addEventListener('play', () => syncPausedState(video));
@@ -845,17 +893,24 @@
             syncPausedState(video);
         });
 
+        if (videos[0]) {
+            ensureVideoPreview(videos[0]);
+        }
+
         if ('IntersectionObserver' in window) {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach((entry) => {
                     const video = entry.target;
-                    if (!entry.isIntersecting) {
+                    if (entry.isIntersecting) {
+                        ensureVideoPreview(video);
+                    } else {
                         video.pause();
                     }
                 });
             }, {
                 root: reelsContainer,
-                threshold: 0.5
+                threshold: 0.3,
+                rootMargin: '120px'
             });
 
             videos.forEach((video) => observer.observe(video));
@@ -869,12 +924,14 @@
 
         reelsContainer.addEventListener('pointerdown', (e) => {
             if (e.pointerType !== 'mouse' || e.button !== 0) return;
+            if (e.target.closest('.play-btn-circle')) return;
 
             isDragging = true;
             hasDragged = false;
             dragStartX = e.clientX;
             dragStartScrollLeft = reelsContainer.scrollLeft;
             reelsContainer.classList.add('dragging');
+            reelsContainer.setPointerCapture?.(e.pointerId);
         });
 
         reelsContainer.addEventListener('pointermove', (e) => {
@@ -901,6 +958,20 @@
         });
 
         reelsContainer.addEventListener('click', (e) => {
+            const playButton = e.target.closest('.play-btn-circle');
+            if (playButton) {
+                const reelCard = playButton.closest('.reel-card');
+                const video = reelCard ? reelCard.querySelector('.reel-bg') : null;
+                if (!video) return;
+                if (video.paused) {
+                    playWithSound(video);
+                } else {
+                    video.pause();
+                }
+                hasDragged = false;
+                return;
+            }
+
             if (hasDragged) {
                 hasDragged = false;
                 return;
@@ -912,58 +983,121 @@
             const video = reelCard.querySelector('.reel-bg');
             if (!video) return;
 
-            const playButton = e.target.closest('.play-btn-circle');
-
-            if (playButton) {
-                if (video.paused) {
-                    playWithSound(video);
-                } else {
-                    video.pause();
-                }
-                return;
-            }
-
             if (!video.paused) {
                 video.pause();
             }
         });
+
+        reelsContainer.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                scrollByStep(1);
+                return;
+            }
+
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                scrollByStep(-1);
+                return;
+            }
+
+            if (e.key === 'Home') {
+                e.preventDefault();
+                reelsContainer.scrollTo({ left: 0, behavior: 'smooth' });
+                return;
+            }
+
+            if (e.key === 'End') {
+                e.preventDefault();
+                reelsContainer.scrollTo({ left: reelsContainer.scrollWidth, behavior: 'smooth' });
+            }
+        });
+
+        let wheelRaf = 0;
+        let wheelDelta = 0;
+        const canConsumeHorizontalWheel = (delta) => {
+            const maxScrollLeft = reelsContainer.scrollWidth - reelsContainer.clientWidth;
+            if (maxScrollLeft <= 1) return false;
+
+            const current = reelsContainer.scrollLeft;
+            const edgeEpsilon = 1;
+
+            if (delta > 0) return current < (maxScrollLeft - edgeEpsilon);
+            if (delta < 0) return current > edgeEpsilon;
+            return false;
+        };
+
+        const flushWheelScroll = () => {
+            const maxScrollLeft = reelsContainer.scrollWidth - reelsContainer.clientWidth;
+            const next = reelsContainer.scrollLeft + wheelDelta;
+            reelsContainer.scrollLeft = Math.max(0, Math.min(maxScrollLeft, next));
+            wheelDelta = 0;
+            wheelRaf = 0;
+        };
+
+        reelsContainer.addEventListener('wheel', (e) => {
+            if (e.ctrlKey) return;
+            const mostlyVerticalWheel = Math.abs(e.deltaY) > Math.abs(e.deltaX);
+            const delta = mostlyVerticalWheel ? e.deltaY : e.deltaX;
+            if (Math.abs(delta) < 0.5) return;
+
+            // If reels are already at start/end for this direction, allow page scroll chaining.
+            if (!canConsumeHorizontalWheel(delta)) return;
+
+            e.preventDefault();
+            wheelDelta += delta;
+            if (!wheelRaf) {
+                wheelRaf = requestAnimationFrame(flushWheelScroll);
+            }
+        }, { passive: false });
     }
 
     function initializeStoryTrack() {
         const track = document.querySelector('.story-track');
-        if (!track || track.dataset.loopReady === 'true') return;
+        if (!track) return;
+
+        const isMobileViewport = window.matchMedia('(max-width: 768px)').matches;
+        if (isMobileViewport) {
+            track.classList.remove('is-looping');
+            track.dataset.loopReady = 'true';
+            return;
+        }
+
+        if (track.dataset.loopReady === 'true') {
+            track.classList.add('is-looping');
+            return;
+        }
+
+        const appendStoryClones = () => {
+            const items = Array.from(track.children);
+            if (items.length < 2) return false;
+
+            const fragment = document.createDocumentFragment();
+            items.forEach((item) => {
+                const clone = item.cloneNode(true);
+                clone.setAttribute('aria-hidden', 'true');
+                fragment.appendChild(clone);
+            });
+            track.appendChild(fragment);
+            track.dataset.loopReady = 'true';
+            track.classList.add('is-looping');
+            return true;
+        };
 
         // Lazy initialize using IntersectionObserver
         if ('IntersectionObserver' in window) {
             const observer = new IntersectionObserver((entries) => {
                 if (entries[0].isIntersecting) {
-                    const items = Array.from(track.children);
-                    if (items.length < 2) return;
-
-                    items.forEach((item) => {
-                        const clone = item.cloneNode(true);
-                        clone.setAttribute('aria-hidden', 'true');
-                        track.appendChild(clone);
-                    });
-
-                    track.dataset.loopReady = 'true';
-                    observer.unobserve(track);
+                    if (appendStoryClones()) {
+                        observer.unobserve(track);
+                    }
                 }
             }, { threshold: 0.1, rootMargin: '100px' });
 
             observer.observe(track);
         } else {
             // Fallback
-            const items = Array.from(track.children);
-            if (items.length < 2) return;
-
-            items.forEach((item) => {
-                const clone = item.cloneNode(true);
-                clone.setAttribute('aria-hidden', 'true');
-                track.appendChild(clone);
-            });
-
-            track.dataset.loopReady = 'true';
+            appendStoryClones();
         }
     }
 
